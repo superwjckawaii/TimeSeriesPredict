@@ -6,13 +6,13 @@ def get_Timeindex(time):
     time=time[5:]
     match time[0]:
         case '1':
-            time_index=int(time[1:-1])-4
+            time_index=int(time[1:])-4
         case '2':
-            time_index=int(time[1:-1])+27
+            time_index=int(time[1:])+27
         case '3':
-            time_index=int(time[1:-1])+55
+            time_index=int(time[1:])+55
         case '4':
-            time_index=int(time[1:-1])+86
+            time_index=int(time[1:])+86
         case _:
             print('TIME INDEX ERROR!')
     return time_index
@@ -43,11 +43,18 @@ def save_Adjmatrix():
             adj_mat[get_Timeindex(adj_data.loc[i,'date_id']),index[adj_data.loc[i,'geohash6_point1']],index[adj_data.loc[i,'geohash6_point2']],0]=int(adj_data.loc[i,'F_1'])
             adj_mat[get_Timeindex(adj_data.loc[i,'date_id']),index[adj_data.loc[i,'geohash6_point1']],index[adj_data.loc[i,'geohash6_point2']],1]=int(adj_data.loc[i,'F_2'])
     
+    print(adj_mat[0,:,:,0],adj_mat[0,:,:,1])
     np.save('./dataset/adj_mat.npy',adj_mat)
 
+def get_Adjmat():
+    adj_mat = np.load('./dataset/adj_mat.npy')
+    return adj_mat
 
 if "__main__" == __name__:
-    save_Index()
-    # print(get_Index())
+    # save_Index()
 
+    # 371f3cbex,5628f18ed,7,19,20230104
+    # print(get_Timeindex('20230104'))
+
+    get_Adjmat()
     save_Adjmatrix()
